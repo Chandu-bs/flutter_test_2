@@ -56,28 +56,39 @@ testWidgets(
   "Checking tap function",
   (WidgetTester tester) async {
 
+  await tester.pumpWidget(MaterialApp(home: Scaffold(body: DicePage())));
+  await tester.pump();
+
   int leftDiceNumber = 1;
   int rightDiceNumber = 1;
-
+  
   void changeDiceFace() {
     leftDiceNumber = Random().nextInt(6) + 1;
     rightDiceNumber = Random().nextInt(6) + 1;
   }
 
-  await tester.pumpWidget(MaterialApp(home: Scaffold(body: DicePage())));
-  await tester.pump();
-  
-  
-  Widget myButton = FlatButton(onPressed: (() { changeDiceFace(); }), child: Image.asset('images/dice1.png'));
+  Widget myButton = FlatButton(onPressed: (() { changeDiceFace(); }), child: Image.asset("images/dice$leftDiceNumber.png"));
 
   await tester.tap(find.byWidget(myButton));
   await tester.pump();
 
-  expect(find.image(AssetImage("images/dice$leftDiceNumber.png")), findsOneWidget);
-  expect(find.image(AssetImage("images/dice$rightDiceNumber.png")), findsOneWidget);
-
+  expect(find.image(AssetImage("images/dice$rightDiceNumber.png")), findsNWidgets(2));
+  
 
   },
 );
+
+testWidgets(
+  "Tap functionality",
+  (WidgetTester tester) async {
+  
+  await tester.pumpWidget(MaterialApp(home: Scaffold(body: DicePage())));
+  await tester.pump();
+
+  
+
+  },
+);
+
 
 }
