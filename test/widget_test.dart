@@ -11,5 +11,28 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_test_2/main.dart';
 
 void main() {
+  testWidgets(
+    "Checking the dicee name on appbar",
+    (WidgetTester tester) async {
+
+    await tester.pumpWidget(const MyApp());
+     
+    expect(find.text('Dicee'), findsOneWidget);
+
+    },
+  );
+
+testWidgets(
+  "Checking the dice image at the start",
+  (WidgetTester tester) async {
+ 
+  await tester.pumpWidget(const MaterialApp());
+  await tester.pump();
+
+  expect(find.image(const AssetImage("images/dice1.png")), findsOneWidget);
+  
+
+  },
+);
 
 }

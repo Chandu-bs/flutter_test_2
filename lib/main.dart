@@ -2,20 +2,28 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
-  return runApp(
-    MaterialApp(
+  return runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.red,
         appBar: AppBar(
-          title: Text('Dicee'),
+          title: Text('Dicee', key: const Key("dicee")),
           backgroundColor: Colors.red,
         ),
         body: DicePage(),
       ),
-    ),
-  );
+    );
+  }
 }
+
 
 class DicePage extends StatefulWidget {
   @override
@@ -40,8 +48,10 @@ class _DicePageState extends State<DicePage> {
         children: <Widget>[
           Expanded(
             child: FlatButton(
+              key: const Key("diceImage"),
               child: Image.asset(
                 'images/dice$leftDiceNumber.png',
+                 key: const Key("diceNo"),
               ),
               onPressed: () {
                 changeDiceFace();
