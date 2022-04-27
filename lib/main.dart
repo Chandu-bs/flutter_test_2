@@ -48,7 +48,7 @@ class _DicePageState extends State<DicePage> {
         children: <Widget>[
           Expanded(
             child: FlatButton(
-              key: const Key("diceImage"),
+              key: const Key('diceImage'),
               child: Image.asset(
                 'images/dice$leftDiceNumber.png',
                  key: const Key("diceNo1"),
@@ -62,7 +62,7 @@ class _DicePageState extends State<DicePage> {
           Expanded(
             // ignore: deprecated_member_use
             child: FlatButton(
-              key: const Key("diceImage2"),
+              key: const Key('diceImage2'),
               child: Image.asset(
                 'images/dice$rightDiceNumber.png',
               ),

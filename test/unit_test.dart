@@ -9,24 +9,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
-  
-test('checking dice function', (() {
-  
+  test('checking dice function', (() {
 //setup
 
-Dicefunction dicefunction = Dicefunction(leftDiceNumber: 1, rightDiceNumber: 1);
+    Dicefunction dicefunction =
+        Dicefunction(leftDiceNumber: 1, rightDiceNumber: 1);
 
 //do
-dicefunction.changeDiceFace();
+    dicefunction.changeDiceFace();
 
 //test
- expect(dicefunction.leftDiceNumber, 4);
-
-
-}));
-
-
-
-
-
+    expect(dicefunction.leftDiceNumber, inExclusiveRange(1, 6));
+    expect(dicefunction.rightDiceNumber, inExclusiveRange(1, 6));
+  }));
 }

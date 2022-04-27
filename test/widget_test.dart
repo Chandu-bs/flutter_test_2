@@ -18,77 +18,62 @@ void main() {
   testWidgets(
     "Checking the dicee name on appbar",
     (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
 
-    await tester.pumpWidget(const MyApp());
-     
-    expect(find.text('Dicee'), findsOneWidget);
-
+      expect(find.text('Dicee'), findsOneWidget);
     },
   );
 
-testWidgets(
-  "Checking the flatbutton widget",
-  (WidgetTester tester) async {
- 
-  await tester.pumpWidget(MaterialApp(home: DicePage()));
-  
-  Widget myButton = FlatButton(onPressed: (() { }), child: Image.asset('images/dice1.png'));
+  testWidgets(
+    "Checking the flatbutton widget",
+    (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: DicePage()));
 
-  expect(find.byWidget(myButton), findsNothing);
-  
+      Widget myButton = FlatButton(
+          onPressed: (() {}), child: Image.asset('images/dice1.png'));
 
-  },
-);
+      expect(find.byWidget(myButton), findsNothing);
+    },
+  );
 
-testWidgets(
-  "Checking the image",
-  (WidgetTester tester) async {
+  testWidgets(
+    "Checking the image",
+    (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: Scaffold(body: DicePage())));
+      await tester.pump();
 
-  await tester.pumpWidget(MaterialApp(home: Scaffold(body: DicePage())));
-  await tester.pump();
-  
-  expect(find.image(const AssetImage('images/dice1.png')), findsNWidgets(2));
+      expect(
+          find.image(const AssetImage('images/dice1.png')), findsNWidgets(2));
+    },
+  );
 
-  },
-);
+  testWidgets(
+    "Tap functionality",
+    (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: Scaffold(body: DicePage())));
 
-testWidgets(
-  "Checking tap function",
-  (WidgetTester tester) async {
+      var myButton = find.byKey(const Key('diceImage'));
 
-  await tester.pumpWidget(MaterialApp(home: Scaffold(body: DicePage())));
-  await tester.pump();
+      await tester.tap(myButton);
+      await tester.pump();
 
-  int leftDiceNumber = 1;
-  int rightDiceNumber = 1;
-  
-  void changeDiceFace() {
-    leftDiceNumber = Random().nextInt(6) + 1;
-    rightDiceNumber = Random().nextInt(6) + 1;
-  }
+      List<String> imageNames = [
+        'dice1.png',
+        'dice2.png',
+        'dice3.png',
+        'dice4.png',
+        'dice5.png',
+        'dice6.png',
+      ];
+      var count = 0;
 
-  Widget myButton = FlatButton(onPressed: (() { changeDiceFace(); }), child: Image.asset("images/dice$leftDiceNumber.png"));
+      for (String image in imageNames) {
+        var matchings =
+            tester.widgetList(find.image(AssetImage("images/$image"))).length;
+        count = count + matchings;
+      }
 
-  await tester.tap(find.byWidget(myButton));
-  await tester.pump();
-
-  expect(find.image(AssetImage("images/dice$rightDiceNumber.png")), findsNWidgets(2));
-  
-
-  },
-);
-
-testWidgets(
-  "Tap functionality",
-  (WidgetTester tester) async {
-  
-  await tester.pumpWidget(MaterialApp(home: Scaffold(body: DicePage())));
-  await tester.pump();
-
-  
-
-  },
-);
-
-
+      expect(count, 2);
+    },
+  );
 }
